@@ -1,0 +1,28 @@
+﻿using Adapter.Example_1.Concrete;
+using Adapter.Example_1.Interface;
+using Adapter.Example_1.Target;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Adapter
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            
+
+            Adaptee adaptee = new Adaptee();
+            ITarget target = new Adapter_1(adaptee);
+
+            Console.WriteLine("Adaptee interface is incompatible with the client.");
+            Console.WriteLine("But with adapter client can call it's method.");
+
+            Console.WriteLine(target.GetRequest());
+            Console.ReadKey();
+        }
+    }
+}

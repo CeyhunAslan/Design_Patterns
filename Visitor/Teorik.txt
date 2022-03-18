@@ -1,0 +1,10 @@
+﻿
+
+
+
+Visitor Design Pattern
+
+
+Behavioral tasarım kalıplarına ait olan visitor tasarım kalıbı aslında ismi gibi tam bir ziyaretçi görevi görüyor. Mantığına geçmeden önce literatür tanımını yapalım. Visitor design pattern sınıflara, sınıfların içerisinde değişiklik yapmadan fonksiyonellik ekleme imkanı sunan patterndir.
+
+Peki ismiyle yaptığı işin benzerliği nedir? Evinize bir ziyaretçi yani visitor geldiğini düşünün bazı işlerde size yardım ediyor ve gidiyor. Aslında sizin evin bir üyesi değil ama gelip bir iş yapıyor oturuyor ve sonra kalkıp gidiyor. Visitor desing patterni de aynı bu şekilde iş yapar. Visitor classın içerisindeki fonksiyonellik aslında, esas ana classa ait bir fonksiyonellik değildir. Siz visitor classı ana classa inject edersiniz. İnject edili olduğu sürece visitor class kattığı fonksiyonelliği gerçekleştirir. Gün gelip onun yerine başka bir fonksiyonellik için başka bir visitor inject ettiğinizde eski visitorun kattığı fonksiyonellik gider ve yerine yeni visitorun kattığı fonkiyonellik gelir.

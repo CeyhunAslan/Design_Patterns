@@ -1,0 +1,44 @@
+﻿
+
+Bir metin-editörü uygulaması yazdığınızı düşünün. İlk işiniz çeşitli işlevler çalışmasını sağlayan düğmeler içeren bir araç çubuğu yapmak. Araç çubuğunda ve çeşitli dialog pencerelerinde kullanılabilecek çok güzel bir Button sınıfı oluşturdunuz.
+
+Command tasarım deseni düğme sınıfı örneği
+Uygulamadaki tüm düğmeler aynı sınıftan türetilecek.
+Bu düğmelerin her biri benzer görünse de farklı işlevleri var. Bu düğmelerin tıklanma olaylarına (click event) ilişkin kodları nereye yazacaksınız? Akla gelen en basit çözüm düğmenin kullanılacağı her yer için bir sürü düğme alt sınıfı oluşturmak olacaktır. Bu alt sınıflar o düğme türüne tıklandığında yapılacak işlemin kodunu içerecektir.
+
+Command tasarım deseni düğme alt sınıfları
+Bir sürü düğme alt sınıfımız olsun, bunda sorun ne ki?
+Çok geçmeden bu yaklaşımın hatalı olduğunu fark edeceksiniz. İlk olarak çok fazla sayıda alt sınıfla uğraşmanız gerekecek ve ana düğme sınıfında yapacağınız değişikliklerin bu alt sınıfların bazılarını bozma riskini de almış olacaksınız. GUI için yazdığınız kodun, asıl işlev kodu ile çok fazla iç içe geçmesi de cabası.
+
+Command tasarım deseni
+İstek sipariş sistemi işleme almadan önce bir dizi kontrolden geçmelidir.
+Ve geldik en kötü tarafına. “Metni kopyala/yapıştır” gibi bazı fonksiyonların farklı yerlerden çağırılması gerekecek. Örneğin kullanıcı araç çubuğundaki “Kopyala” butonuna tıklayabilir, sağ tıklayarak açılan menüden kopyalayı seçebilir, ya da CTRL+C klavye kısa yolunu kullanabilir. “Kopyala” işlevi için yazdığınız kodu tüm bu yöntemler için kopyala/yapıştır mı yapacaksınız?
+
+
+
+
+
+Çözüm
+İyi bir yazılım tasarımı, genelde uygulamanın katmanlara ayrılması ile sonuçlanan işlevlerin ayırılması ilkesine ( seperation of concern principle ) dayanır. En alışıldık örnek: Grafik arayüz için bir katman, uygulama işlevleri mantığı için bir katman olmasıdır. Bu kodda genelde şöyle çalışır: Bir GUI nesnesi bir işlev nesnesinin bir metodunu çeşitli parametrelerle çalıştırır. Yani bir nesne diğer bir nesneye istek gönderir.
+
+Command tasarım deseni katmanları ayırma
+GUI nesneleri İşlev nesnelerine doğrudan erişebilir.
+Command deseni GUI nesnelerinin bu isteği doğrudan göndermemesini tavsiye eder. Tersine, çağırılan nesne, metot adı ve gönderilen parametreleri bir command sınıfı içine aktarmanızı ve isteği bu nesne içindeki tek bir metotla tetiklemenizi tavsiye eder.
+
+Command nesneleri çeşitli GUI ve işlev nesneleri arasında bağlantı sağlarlar. Bundan sonra GUI nesnesi isteği hangi işlev nesnesinin alacağını veya nasıl işleyeceğini bilmek zorunda değildir. GUI nesnesi sadece ilgili ‘command’ nesnesini tetikler ve gerisini o nesne halleder.
+
+Command tasarım deseni örnek
+İşleyiciler bir zincir oluşturacak şekilde sıralanmışlar.
+Sonraki adım tüm command’lerinizin aynı arayüzü (interface) paylaşmasıdır. Bu arayüz genelde parametre almayan tek bir çalıştırma metodundan oluşur. Bu arayüz aynı istek göndericisi ile çeşitli command’leri kullanabilmenizi sağlar. Bonus olarak gönderici ile ilişkili command nesnesini değiştirerek, çalışma anında göndericinin davranışını değiştirebilirsiniz.
+
+Yapbozun bir parçasının eksik olduğunu fark etmiş olabilirsiniz. Eksik parça istek parametreleri. GUI nesnesi, işlev nesnesine bazı parametreler göndermiş olabilir. Command çalıştırma metodu parametre almadığına göre isteği alıcıya doğru bir şekilde nasıl aktaracak? Bunun için bu veri command’e önceden tanımlanmış olmalı veya command bu veriyi nasıl alacağını biliyor olmalıdır.
+
+Command tasarım deseni örneği
+İşleyiciler bir zincir oluşturacak şekilde sıralanmışlar.
+Metin editörü örneğimize geri dönelim. Command desenini uyguladıktan sonra farklı tıklama davranışları sergileyen alt düğme sınıfları entegre etmemize gerek kalmadı. Düğmeye sadece bir command nesnesi referans verip kendisine tıklandığında bu command nesnesinin çalıştırma metodunu tetiklemesini sağlayabiliriz.
+
+Her işlev için farklı command sınıfları oluşturmanız ve bunları ilgili düğmelerle bağlamanız gerekecektir.
+
+Sağ tıklama menüsü, kısa yollar veya diyalog pencerelerini de aynı şekilde tasarlayarak bu commandlere bağlayabilirsiniz. Böylece aynı işlevi gerçekleştirdiğiniz farklı elemanları tek bir command nesnesine bağlayarak işlevin içeriğini tek bir yerden düzenleyebilirsiniz.
+
+Sonuç olarak command deseni GUI ve işlev katmanı arasındaki bağımlılığı azaltan kullanışlı bir ara katman görevi görecektir.

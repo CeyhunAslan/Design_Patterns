@@ -1,0 +1,34 @@
+﻿Mediator Tasarım Deseninin Amacı
+Mediator (Ara bulucu ) nesneler arasındaki kaotik bağımlılıkları azaltmayı sağlayan davranışsal bir tasarım desenidir. Bu desen nesneler arasındaki doğrudan iletişimi sınırlar ve sadece mediator nesnesi üzerinden haberleşmeye zorlar.
+
+
+
+
+
+Sorun
+Diyelim ki müşteri profilleri oluşturmak ve düzenlemek için bir diyalogunuz var. Bu diyalog metin alanları, işaretleme kutuları (checkbox), düğmeler vb. alanlardan oluşuyor.
+
+Mediator tasarım deseni nedir
+Uygulama geliştikçe kullanıcı arayüzündeki elemanlar arasında ilişkiler kaotik bir hal alır.
+Bazı form elemanları diğerleri ile etkileşimde olabilir. Örneğin, “bir köpeğim var” kutusu işaretlenince, köpeğin adının girileceği gizli bir alan görüntülenecek olabilir. Bir diğer örnekte veriyi göndermeden önce kontroller yapılmasını gerektiren bir gönderme butonu olabilir.
+
+Mediator tasarım deseni örneği
+Elemanların diğer elemanlarla bir çok ilişkisi olabilir. Bu nedenle bazı elemanlardaki değişiklikler diğer elemanları da etkileyebilir.
+Bu mantığı doğrudan form elemanlarının koduna eklerseniz bu elemanların sınıflarını uygulamanızdaki diğer formlarda kullanmanız çok daha zorlaşır. Örneğin işaretleme kutusu elemanını başka bir form içerisinde kullanamazsınız çünkü “köpeğin adı” alanı ile doğrudan bağlantılıdır.
+
+
+
+
+
+
+
+Çözüm
+Mediator tasarım deseni birbirinden bağımsız hale getirmek istediğiniz elemanlar arasındaki doğrudan iletişimi kesmeniz gerektiğini önerir. Bu bileşenler doğrudan iletişim kurmak yerine yerine, çağrıları uygun bileşenlere yönlendiren özel bir mediator nesnesi vasıtası ile dolaylı olarak iş birliği yapmalıdır. Böylece bileşenler düzinelerce başka elemana bağlanmak yerine tek bir mediator nesnesine bağımlı olacaklardır.
+
+Profil düzenleme örneğimizde, dialog sınıfı bir mediator olarak görev alabilir. Dialog sınıfı büyük ihtimalle bütün alt elemanlarından haberdardır ve bu sayede yeni bağımlılıklar oluşturmanız gerekmez.
+
+Mediator tasarım deseni çözüm örneği
+UI elemanları mediator nesnesi vasıtası ile dolaylı olarak ileitşim kurmalıdır.
+En önemli değişiklik form elemanlarında olur. Gönder butonu özelinde düşünelim. Daha önce kullanıcı gönder butonuna her bastığında tüm form elemanlarının değerlerinin kontrol edilmesi gerekiyordu. Şu an tek yapması gereken diyaloga kendisine tıklandığını haber vermek. Diyalog bu bildirimi aldıktan sonra gereken kontrolleri yapıp işi form elemanlarına aktaracaktır. Böylece gönder butonunun tek bilmesi gereken dialog penceresi oalcaktır.
+
+Biraz daha ileri götürüp tüm diyaloglar için ortak bir arayüz oluşturarak bağımlılığı daha da azaltabilirsiniz. Bu arayüz tüm form elemanlarının diyaloga kendileri ile ilgili olayları haber vermesini sağlayan bir bildirim metodu tanımlamalıdır. Böylece gönder butonumuz artık bu arayüzden türemiş herhangi bir formla entegre çalışabilir.

@@ -1,0 +1,35 @@
+﻿
+
+
+Memento Tasarım Deseninin Amacı
+Memento, bir nesnenin önceki durumunu, uygulama detaylarını açığa çıkartmadan kaydetmeniz ve geri getirmenizi sağlayan bir tasarım desenidir.
+
+
+Sorun
+Bir metin editörü uygulaması yazdığınızı düşünün. Uygulamanız sadece metni düzenleme işlemleri değil, metin biçimlendirme, metin içine görseller ekleme gibi özelliklere de sahip olsun.
+
+Diyelim ki kullanıcıların yaptıkları değişiklikleri geri alabilmelerini sağlamaya karar verdiniz. Bu özellik yıllardır çoğu uygulamada varsayılan olarak bulunduğu için kullanıcıların uygulamanızdan böyle bir beklentisi var. Bunu şu şekilde doğrudan uygulamaya karar verdiniz; her işlemden önce uygulama tüm nesnelerin mevcut durumlarını bir depolama alanına kaydedecek, kullanıcı geri dönmeye karar verirse uygulamanız en saklama alanından en son anı alıp bunu bütün nesneleri o hale döndürmek için kullanacak.
+
+Memento deseni nedir
+Nesnenin özel (private) alanlarını nasıl kopyalacaksınız?
+Dahası da var. Editörün anlık görüntülerini ele alalım. Bu görüntülerin içinde ne olur? En azından mevcut metin, imleçin o andaki konumu, kaydırma çubuğunun konumu vb. bilgiler olmalı değil mi? Bir anlık görüntü oluşturmak için bütün bu değerleri toplamalı ve bir çeşit konteyner içine yerleştirmelisiniz.
+
+Bu konteyner listelerini de büyük ihtimalle bir geçmişi gösteren bir liste içinde tutacaksınız. Sonuç olarak bu konteynerler bir sınıfa ait nesneler haline gelecekler. Bu sınıfın neredeyse hiç bir metodu yokken, editörün durumunu yansıtan bir sürü alanı olacak. Diğer nesnelerin bu görüntüye yazmaları veya okuyabilmeleri için bu alanları açık (public) yapmanız gerekecek. Bu da özel (private) olsun ya da olmasın editörün durumundaki tüm bilgiyi açık hale getirecek. Diğer sınıflar, anlık görüntü sınıfındaki en ufak değişiklikten bile etkilenebilecek ve bağımlı hale gelecekler. (normalde özel (private) alanlar ve metotların kendi iç dinamikleri ile hallolacak konularda bile)
+
+Görünüşe göre bir çıkmaza girdik, ya ilgili sınıfların tüm detaylarını dışa açık (public) hale getirecek ve çok kırılgan bir yapıya dönüştüreceksiniz, ya da durumlarına erişimi kısıtlayacak ama o zamanda anlık görüntü oluşturamayacaksınız. “Geri al” özelliğini uygulamak için başka bir yol yok mu?
+
+
+
+
+
+Çözüm
+
+Az önce yaşadığımız tüm sorunlar kapsamı sınırlandırmanın bozulmasından kaynaklanıyor. Bazı nesneler yapmaları gerekenden daha fazlasını yapıyorlar. Bir işlemi ilgili nesneye yaptırmak yerine, o işlemi yapmak için gereken veriyi nesnenin özel (private) alanlarına müdahale ederek yapmaya çalışıyorlar.
+
+Memento deseni anlık görüntü oluşturma işini, asıl nesnenin kendisine delege ediyor. Başka nesnelerin dışarıdan editörün durumunu kopyalamaya çalışması yerine editör sınıfının kendi anlık görüntüsünü oluşturmasını sağlıyor.
+
+Bu desen nesnenin durum kopyasını memento adı verilen özel bir nesnede saklamayı öneriyor. Memento’nun içeriği kendisini oluşturandan başka hiç bir nesne tarafından ulaşılabilir değil. Diğer nesneler, Memento ile sınırlı bir arayüz üzerinden iletişim kurarak sadece anlık görüntü meta bilgilerine (oluşturma zamanı, yapılan işlemin adı vs. gibi bilgiler) ulaşabilirler. Nesnenin orijinal durumu ise görüntünün kendisinde yer alır.
+
+Memento deseni örneği
+Orijinal nesne mementoya tam erişime sahipken, bakıcılar sadece sınırlı bilgilere ulaşabilirler.
+Bu sınırlayıcı politika mementoları, bakıcı olarak adlandırılan başka nesnelerin içinde depolamaya olanak verir. Bakıcı memento ile çok sınırlı bir arayüz üzerinden iletişim kurduğu için memento içinde saklanan görüntüye erişemez. Aynı zamanda asıl nesnenin memento içerisindeki tüm nesnelere erişebilmesi ve gerektiğinde önceki duruma getirebilmesi gerekir.

@@ -1,0 +1,38 @@
+﻿
+
+
+Factory Method
+
+Factory Method bir üst sınıfta nesneler oluşturmak için bir arabirim sağlayan, ancak alt sınıfların oluşturulacak nesnelerin türünü değiştirmesine izin veren yaratıcı bir tasarım modelidir.
+Kelime anlamı “Fabrika Metodu” olan Factory Method, üst sınıfta nesneler oluşturmak için bir arabirim sağlayan, ancak alt sınıfların oluşturulacak bu nesne türünü değiştirmesine izin veren bir yaratımsal desen (creational pattern) türüdür.
+
+
+
+
+Sorun
+Bir lojistik yönetim uygulaması oluşturduğunuzu hayal edin. Uygulamanızın ilk sürümü sadece kamyon nakliyesini desteklediğinden kodunuzun çoğu "Kamyon” sınıfına göre hazırladınız.
+
+Bir süre sonra uygulamanızın çok popüler hale geldi ve deniz taşımacılığı şirketleri deniz taşımacılığını da uygulamaya eklemeniz için her gün ısrarla sizi aramaya başladı.Harika bir haber değil mi? Peki ya kodda yapılması gereken değişiklikler? Şu an kodunuzun büyük bölümü "Kamyon" sınıfı ile iç içe geçmiş durumda. Gemi sınıfını eklemek bütün kodda değişiklik yapmayı gerektiriyor. Ayrıca gelecekte başka bir nakliye yöntemi eklemek isterseniz bütün değişiklikleri tekrar yapmanız gerekecek.
+
+Sonuç olarak nakliye aracının tipine göre uygulamanın davranışlarını değiştiren koşullu ifadelerle dolu dağınık bir kodunuz olacak.
+
+
+
+
+
+Çözüm
+Fabrika Metodu/Factory Method deseni doğrudan nesne oluşturma çağrılarını (new operatörü kullanarak), özel bir fabrika metodu çağrısına dönüştürmeyi öneriyor. Nesneler hala new opeartörü ile oluşturuluyor ama fabrika metodu içerisinden çağrılıyor. Fabrika metodunun döndürdüğü nesneler de ürün olarak adlandırılıyor.
+
+Bu değişiklik ilk bakışta anlamsız görülebilir: nesnenin oluşturulması çağrısını prograın bir yerinden alıp başka bir yerine taşıdık. Fakat şöyle düşünün, artık elinizde bir alt sınıf içerisinde ezerek oluşturacağı ürünün sınıfını değiştirebileceğiniz bir metod var.
+
+Fakat burada bir sınırlama söz konusu: Alt sınıfların farklı ürünler döndürebilmesi için bu ürünlerin ortak bir sınıf (class) ya da arayüze (interface) sahip olmaları gerekiyor. Ayrıca ana sınıftaki fabrika metodunun geri döndürdüğü değerin tipi bu arayüz olarak tanımlanmak zorunda.
+
+
+
+
+Örneğin hem Kamyon hem de Gemi sınıfları tasi adında bir metod içeren Transport Interface’ini esas almalı. Her iki sınıfta metodu farklı esas alacaktır; kamyonlar malı karadan taşırken gemiler deniz yoluyla taşıyacaktır. KaraLojistigi sınıfı kamyon nesnesi döndürürken DenizLojistigi sınıfı gemi döndürecektir.
+
+
+Fabrika metodunu çağıran kod (genellikle istemci kod olarak adlandırılır) farklı alt sınıfların döndürdüğü bu nesneler arasında bir fark görmeyecektir. İstemci her iki objeyi de teorik olarak nakliye aracı olarak görecektir. İstemci tüm nakliye nesnelerinin tasi metoduna sahip olduğunu bilecektir fakat bu metodun nasıl çalıştığı istemcinin umurunda olmayacaktır.
+
+

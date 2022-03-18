@@ -1,0 +1,14 @@
+﻿
+
+
+Chain of Responsibility deseninin amacı
+Chain of Responsibility, Türkçe adıyla “Sorumluluk Zinciri” bir isteği bir dizi işleyici (zinciri) boyunca iletmenize izin veren davranışsal bir tasarım desenidir 
+
+
+
+Örenek vermek gerekirse bir internet arızasında internet sağlayıcıdan yardım almak için aradığımız bir seneryo düşünülebilir.
+
+İnternet Kulanıcısı : "Merhaba teknik destek almak için aramıştım"
+Teleskleter : "Eğer taknik destek alamk istiyorsanız lütfen 1'e basın ....."
+Personel : Arızanız Teknik kaynaklı değil sizi Bilişim'e aktarıyorum.
+Bilişim Personeli : Bazı driverslerininz güncel değil .

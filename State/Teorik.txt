@@ -1,0 +1,36 @@
+﻿State Tasarım Deseninin Amacı
+State bir nesnenin iç durumu değiştiğinde davranışını da değiştirmesini sağlayan bir tasarım desenidir. Sanki nesne sınıfını (class) değiştirmiş gibi görünür.
+
+
+
+
+State deseni sonlu durum makineleri konsepti ile yakından ilişkilidir.
+
+
+Ana fikir şu; herhangi bir zamanda, bir programın olabileceği sınırlı sayıda durum vardır. Herhangi bir benzersiz durumda, program farklı şekilde hareket eder ve program durumu birinden diğerine anlık olarak değişebilir. Fakat, programın mevcut duruma bağlı olarak, durumu bir başka duruma değiştirilebilir veya değiştirilemeyebilir. Bu değiştirme kurallarına geçişler denir ve bunlar önceden belirlidir ve bir sonlu sayıdadır.
+
+Bu yaklaşımı nesnelere de uygulayabilirsiniz. Bir Document sınıfınız olduğunu düşünün. Bir doküman şu 3 durumdan birinde olabilir: Draft (Taslak), Moderation (Moderasyonda) ve Published (Yayımlanmış). Dokümanın publish (yayınla) metodu her durumda farklı çalışır:
+
+Taslak durumundayken yayımlanırsa, moderasyon durumuna geçer
+Moderasyon durumundayken dokümanı genele açık hale getirir, fakat bunu sadece mevcut kullanıcı bir yöneticiyse yapabilir.
+Daha önceden yayımlanmış bir doküman için durumda bir değişiklik olmaz.
+
+Bir doküman nesnesi için mümkün olan durumlar ve geçişler
+State machines (durum makineleri) genel olarak, mevcut duruma göre uygun davranışı seçen koşullu ifadelerle ( if veya switch gibi) uygulanırlar. Genelde durum nesnenin alanlarından bazılarının değerlerinden oluşur. Sonlu-durum-makinelerini daha önce duymadıysanız bile, muhtemelen en az bir defa bir durum uygulaması yapmışsınızdır. Aşağıdaki kod yapısı tanıdık geldi mi?
+
+Koşullu ifadelere dayalı bir durum makinesinin zayıf noktası yeni durumlar ve duruma bağlı davranışlar eklemek istediğinizde ortaya çıkar. Çoğu metot, mevcut duruma göre doğru davranışı seçen devasa koşul ifadeleri içerecektir. Geçiş mantığında yapılacak herhangi bir değişiklik tüm metodlardaki koşullu ifadelerin değişmesini gerektireceğinden bu tarz kodları yönetmek zordur.
+
+Proje geliştikçe sorun daha da büyür. Bütün olası durumları ve geçişleri tasarım aşamasında planlamak hiç de kolay değildir. Böyle olunca da başta çok yalın gözüken bir durum makinesi kodu, zamanla şişerek karmaşık bir hale dönüşebilir.
+
+
+Çözüm
+
+State deseni bir nesnenin tüm olası durumları için bir sınıf oluşturmanızı ve bu duruma özel davranışların hepsini bu özel sınıf içerisine aktarmanızı tavsiye eder.
+
+Bağlam adı verilen orijinal nesne tüm davranışları kendisi uygulayacağına, her biri kendi durumunu tutan durum nesnelerinin referansını saklayarak, durumla alakalı işleri gerektiğinde onlara delege eder.
+
+
+Doküman işi bir durum nesnesine delege ediyor.
+Bağlamın bir başka duruma geçiş yapması için, aktif durum nesnesi yeni durumu temsil eden bir başka nesne ile değiştirilir. Bunun mümkün olması için tüm durum nesnelerinin aynı arayüzü esas alması şarttır. Böylece bağlam nesnesi durum nesneleri ile bu arayüz üzerinden iletişim kurabilir.
+
+Bu yapı Strategy desenine benzer görünebilir, fakat ikisi arasında önemli bir fark var. State deseninde, durumlar birbirlerinden haberdar olabilir ve bir durumdan diğerine geçişi başlatabilir

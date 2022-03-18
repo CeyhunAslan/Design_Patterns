@@ -1,0 +1,48 @@
+
+Design Patterns(Tasarým Kalýplarý)
+
+Hepimiz yaþantýmýzda bir konuda problemlerle karþýlaþmýþ ve buna kendimizce çözümler üretmiþizdir. Bazen bu çözümler önceki çözümlerimize o kadar tanýdýk gelmeye baþlar ki, bu durum artýk kendini tekrar etmeye baþlar. Belli süre sonra artýk geçmiþ hatalarýmýzdan dersler alýrýz ve bir sonraki adýmda ayný problemle karþýlaþmamak için yapýlmasý gerekeni biliriz.
+Yazýlým sektörünün geliþiminde de bu durum söz konusu. Biz yazýlýmcýlar aslýnda farklý projeler geliþtiriyor olsakta benzer problemlere çözüm ararýz, benzer sorunlarla karþýlaþýrýz. Bu sorunlara da hepimiz kendimizce çözümler üretiriz. Peki bu çözümleri bir araya getirsek ve bunlara bir isim versek? Ýþte Design Patterns(Tasarým Kalýplarý) buna çözüm sunuyor.
+
+
+
+
+Tasarým kalýplarý, yazýlým geliþtiricilerin yazýlým geliþtirme sýrasýnda karþýlaþtýklarý genel sorunlarýn çözümüdür. Bu çözümler, uzun bir süre boyunca sayýsýz yazýlým geliþtirici tarafýndan deneme yanýlma yoluyla elde edilmiþtir.Ancak günümüzde bundan çok daha fazlasý vardýr. Ayrýca bu konuyu belli bir kalýba oturtmak doðru olmaz. Siz de projenizi geliþtirirken kendi tasarým kalýbýnýzý oluþturabilir ve kendi çözümünüzü bulabilirsiniz. Ancak tasarým kalýplarýnýn amacý tekerleði baþtan icat etmemek olduðu için, var olan çözümleri bilip uygun olan yerde kullanmak sizin için en doðrusu olacaktýr. Probleme göre uygun tasarým kalýbýný uygulamakta size kalmakta.
+
+
+
+Tasarým Kalýplarý Çeþitleri
+
+Yazýlým tasarým kalýplarý genel olarak 3 ana baþlýkta incelenir. Bunlar þunlardýr:
+
+1- Creational Patterns (Yaratýmsal Kalýplar): Bu tasarým deseni nesneleri doðrudan new operatörü kullanarak oluþturmak yerine nesne oluþturma mantýðýný gizleyerek sýnýflardan nesne oluþturmaya alternatif çözümler sunar. Bu program akýþýnda hangi nesneye ihtiyaç varsa onu oluþturmada esneklik ve kolaylýk saðlar.
+Creational Patterns
+Singleton Pattern
+Factory Pattern
+Abstract Factory Pattern
+Builder Pattern
+Prototype Pattern
+
+2- Structural Patterns (Yapýsal Kalýplar): Bu tasarým deseni nesneler arasýndaki iliþkinin yapýsýný düzenlemek için çözümler sunar.
+Structural Patterns
+Adapter Pattern
+Bridge Pattern
+Filter Pattern
+Composite Pattern
+Decorator Pattern
+Facade Pattern
+Flyweight Pattern
+Proxy Pattern
+
+3- Behavioral Patterns (Davranýþsal Kalýplar): Bu tasarým deseni çalýþma zamanýnda nesneler arasýndaki davranýþlar için çözümler sunar.
+Chain of Responsibility Pattern
+Command Pattern
+Interpreter Pattern
+Iterator Pattern
+Mediator Pattern
+Memento Pattern
+Observer Pattern
+Null Object Pattern
+Strategy Pattern
+State Pattern
+Visitor Pattern

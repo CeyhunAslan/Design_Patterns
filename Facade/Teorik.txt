@@ -1,0 +1,18 @@
+﻿
+
+
+
+
+Facade bir kütüphane, framework ya da başka bir kompleks seri için basitleştirilmiş bir arayüz sunan yapısal bir tasarım desenidir.
+
+Sorun
+Kodunuzun komplike bir kütüphane ya da framework içerisindeki bazı nesneler ile çalışacak şekilde oluşturmanız gerektiğini düşünün. Normalde tüm bu nesneleri başlatmanız (initalize), bağımlılıklarını (dependency) takip etmeniz, metodları doğru sırada yürütmeniz vs. vs. bir sürü şey gerekecektir.
+
+Böyle olunca sizin kendi sınıflarınızın mantığı üçüncü parti sınıflarla sıkı sıkıya bağlı olacak, bu da kodun anlaşılması yönetilmesini zorlaştıracaktır
+
+
+
+Çözüm
+Facade çok fazla değişken parça içeren kompleks bir sisteme basit bir arayüz sunan bir sınıftır. Facade doğrudan ilgili sınıflarla çalışmaya göre daha sınırlı bir fonksiyonellik sağlar, fakat en çok ihtiyaç duyulan özellikleri içinde barındırır.
+
+Facade uygulamanıza karmaşık ama aslında çok az özelliğini kullanacağınız bir kütüphane entegre edeceğiniz durumlarda harika iş görür. Örneğin, sosyal medyaya komik kedi videoları yükleyen basit bir uygulama yaptığınızı düşünelim. Muhtemelen bu videolar için sayısız özelliği ve parametresi olan profesyonel bir video dönüştürme kütüphanesi kullanacaksınız. Fakat aslında ihtiyacınız encode(filename, format) şeklinde tek bir metod içeren tek bir sınıf. Böyle bir sınıf oluşturup bunu video dönüştürme kütüphanesine bağladığınızda facade’nizi oluşturmuş olacaksınız.

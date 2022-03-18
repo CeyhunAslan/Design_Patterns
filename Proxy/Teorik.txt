@@ -1,0 +1,19 @@
+﻿Proxy tasarım deseninin amacı
+Proxy başka bir nesne için bir yedek veya yer tutucu sağlamanıza olanak tanıyan yapısal bir tasarım desenidir. Bir proxy, orijinal nesneye erişimi kontrol ederek, istek orijinal nesneye ulaşmadan önce veya sonra bir şeyler gerçekleştirmenize izin verir.
+
+Sorun
+Neden bir nesneye erişimi kontrol etmek isteyesiniz? İşte bir örnek: Çok büyük miktarda sistem kaynağı tüketen devasa bir nesneniz var. Bu nesneye her zaman değil sadece arada sırada ihtiyaç duyuyorsunuz.
+
+Proxy tasarım deseni nedir?
+Veritabanı sorguları çok yavaş olabilir.
+Tembel başlatma (Lazy initialization) uygulayabilir, yani bu nesneyi yalnızca gerçekten ihtiyaç duyulduğunda oluşturabilirsiniz. Tüm istemcilerin nesnenin ertelenmiş başlatma kodlarının yürütülmesini beklemesi gerekir. Ne yazık ki, bu muhtemelen çok fazla kod tekrarına neden olacaktır.
+
+İdeal bir dünyada, bu kodu doğrudan nesnemizin sınıfına koymak isteriz, ancak bu her zaman mümkün değildir. Örneğin, bu sınıf kapalı bir 3. taraf yazılımın bir parçası olabilir.
+
+
+Çözüm
+Proxy modeli, orijinal servis nesnesiyle aynı arabirime sahip yeni bir ara sınıf, yani proxy sınıfı oluşturmanızı önerir. Ardından, proxy nesnesini orijinal nesneyei kullanan tüm istemcilerine iletmesi için uygulamanızı güncellersiniz. Bir istemciden bir istek aldığında, proxy gerçek bir hizmet nesnesi oluşturur ve tüm işi ona devreder.
+
+Proxy tasarım deseni nasıl kullanılır?
+Proxy, kendisini bir veritabanı nesnesi olarak gösterir. İstemci veya gerçek veritabanı nesnesi farkında bile olmadan tembel başlatmayı ( lazy initialization) işletip sonucu ön belleğe alır.
+İyi ama bunun faydası nedir? Sınıfın ana işlevinden önce ya da sonra başka bir şey çalıştırmak istediğinizde proxy sınıfı size bu imkanı sunar. Proxy orijinal sınıfla aynı arayüze sahip olduğu için, gerçek bir hizmet nesnesi bekleyen tüm istemcilere hizmet nesnesiymiş gibi gönderilebilir.

@@ -1,0 +1,33 @@
+﻿
+
+
+
+Builder Deseninin Amacı
+
+Builder karmaşık nesnelerin adım adım oluşturulduğu yaratımsal bir tasarım desenidir. Bu desen aynı kurucu kod ile farklı tür ve gösterimdeki nesneleri oluşturmanıza olanak sağlar. Türkçe karlılığı kurucu, inşaatçı vb. tanımlardır
+
+
+
+Adım adım ve zahmetli bir şekilde oluşturulması gereken bir çok alan ve iç içe gemiş nesnelerden oluşan karmaşık bir nesne hayal edin. Bu tür başlatma kodları genellikle çok sayıda parametre bekleyen devasa bir kurucunun için gömülür. Hatta daha da kötüsü böyle bir kurucu olmadan istemci kodun içerisine dağılmış olur.
+
+
+Olası her yapılandırma için bir alt sınıf oluşturarak programınızı çok komplike bir hale getiriyor olabilirsiniz.
+
+Örneğin evlerinizi tanımlayan House nesnesini nasıl tanımlayacağınızı düşünelim. Basit bir ev oluşturmak için dört duvar ve zemini oluşturmanız, bir kapı ve bir kaç pencere takmanız ve çatısını inşa etmeniz gerekir. Peki daha aydınlık, büyük, arkasında bir bahçe ve diğer gereksinimleri (ısıtma sistemi, tesisat, elektrik kablolama vb.) olan bir eve ihtiyacınız varsa?
+
+En basit çözüm temel House nesnenizi genişletmek ve bütün bu parametreler için gereken alt sınıfları oluşturmaktır. Fakat bunu yaptığınızda çok ciddi miktarda alt sınıfla karşılaşırsınız. Ekleyeceğiniz her yeni özellik (örneğin verandanın stili) bu hierarşiyi daha da büyütecektir.
+
+Bir başka yaklaşım House sınıfınız içerisinde bir ev nesnesini oluşturan tüm olası paremetreleri dikkate alan devasa bir kurucu oluşturarak alt sınıfların sayısını arttırmayı önlemektir. Bu yaklaşım alt sınıflar oluşturmayı engellese de bir başka problemi beraberinde getirir.
+
+Çoğu zaman parametrelerin tamamı kullanılmaz ve kurucu fonksiyon çağrları çok çirkin görünür. Örneğin sadece bazı evlerde yüzme havuzu vardır ve havuzla ilgili parametreler 10 evin 9’unda gereksiz olacaktır.
+
+
+Çözüm
+Builder deseni nesnenin kurucu kodunu kendine has bir sınıfa dönüştürerek, builder olarak adlandırılan bağımsız nesneleri taşımanızı önerir.
+
+
+Bu desenle nesne kurulum süreci bir takım adımlara (duvar örme, kapıyı monte etme vs. gibi) bölünüyor. Bir nesne oluşturmak için builder nesnesinde çeşitli adımları artarda çağırıyoruz. Buradaki en önemli husus yukarıdaki yaklaşımların aksine tüm adımları çağırmak zorunda olmadan sadece ihtiyacımız olan nesne için gereken adımları çalıştırıyoruz.
+
+Öte yandan bazı kurulum aşamalarının oluşturulan ürüne göre değişiklik göstermesi gerekebilir. Örneğin bir kulübenin duvarları ahşaptan yapılırken, bir sarayın duvarları büyük taşlardan oluşur.
+
+Bu durumda aynı yapım aşamalarını farklı bir şekilde oluşturaraj özel builder sınıfları oluşturabilirsniz. Böylece farklı nesneler oluşturmak için farklı builder’lar kullanabilirsiniz.

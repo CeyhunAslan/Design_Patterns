@@ -1,0 +1,18 @@
+﻿
+
+Adapter deseninin amacı
+Adapter birbiriyle uyumlu olmayan arayüzlere (interface) sahip nesnelerinbirlikte çalışabilmelerini sağlayan yapısal bir tasarım desenidir.
+
+
+Çözüm
+Bir adaptör (adapter) yazabilirsiniz. Bu özel nesne bir nesnenin arayüzünü (interface) değiştirerek diğer nesnenin kullanabileceği hale getirir.
+
+İş yapmak isteyen bir Japon ve bir Alman arasında her iki dili bilen bir kişinin tercümanlık yaptığını düşünün, işte adaptörde buna benzer bir iş yapıypr.
+
+Adapter arka tarafta dönen kompleks dönüştürme işlemlerini gizlemek için nesnelerden birini tamamen sarar. Örneğin feet ve mil gibi emperyal birimlerle işlem yapan bir kütüphaneyi bir adaptör ile sararak tüm veriyi kilometre ve metreye dönüştürebilirsiniz.
+
+Adaptörler sadece veriyi farklı formatlara dönüştürmeyi değil, aynı zamanda farklı arayüzlerin birlikte çalışmasını sağlar. Bir örnekle açıklarsak;
+
+Adaptör mevcut nesnelerden biriyle uyumlu bir arayüzü (interface) alır.
+Mevcut nesne bu arayüzü kullanarak adaptörün metodlarını güvenli bir şekilde çağırabilir.
+Bir istek geldiğinde adaptör isteği ikinci bir nesneye onun beklediği bir formatda aktarır.

@@ -1,0 +1,44 @@
+﻿
+
+
+
+Strategy Tasarım Deseninin Amacı
+Strategy deseni bir algoritma ailesi oluşturup her birini farklı sınıfa yerleştirerek nesnelerini birbiri arasında değişebilir hale getirmeyi sağlayan bir tasarım desenidir.
+
+
+
+
+Sorun
+Gezginler için bir navigasyon uygulaması oluşturmaya karar verdiniz. Uygulamayı herhangi bir şehirde, güzel bir harita üzerinde, kullanıcıların yönlerini hızlıca belirlemelerini sağlayacak şekilde inşa ettiniz.
+
+Uygulama için en çok istenen özelliklerden biri de otomatik rota oluşturabilmesi oldu. Bunun için kullanıcı varmak istediği adresi girmeli ve o adrese gitmek için en hızlı rotayı görebilmeli.
+
+Uygulamanın ilk sürümü, yalnızca yollar üzerinde rotalar oluşturabiliyordu. Arabayla seyahat edenler sevinçten havalara uçtu. Ama görünüşe göre, herkes tatilde araba kullanmayı tercih etmiyor. Bir sonraki güncelleme ile yürüyüş rotaları oluşturmak için bir seçenek eklediniz. Hemen ardından insanların güzergahlarında toplu taşımayı kullanmalarına izin veren bir seçenek daha eklediniz.
+
+Ancak, bu sadece başlangıçtı. Daha sonra bisikletçiler için rota oluşturmayı eklemeyi planladınız. Hatta daha sonra, şehrin tüm turistik mekanları arasında rota oluşturmak için başka bir seçenek eklemeyi düşündünüz.
+
+Strategy tasarım deseni nedir
+Navigasyon kodu gittikçe karmaşık bir hal aldı.
+Uygulama ticari olarak bakıldığında başarılı olsa da teknik kısım bir çok baş ağrısına neden oldu. Her yeni rota belirleme algoritması ana navigasyon kodunun büyüklüğü iki katına çıktı. Bir yerden sonra bu canavarla baş etmek zor olmaya başladı.
+
+Algoritmalardan birinde yapılacak herhangi bir değişiklik, ister basit bir hata düzeltmesi isterse sokak puanında küçük bir değişiklik olsun, tüm sınıfı etkileyerek halihazırda çalışan kodda bir hata oluşturma şansını artırdı.
+
+Ayrıca, ekip çalışması verimsiz hale geldi. Başarılı sürümden hemen sonra işe alınan takım arkadaşlarınız, birleştirme çatışmalarını (merge conflict) çözmek için çok fazla zaman harcadıklarından şikayet ediyorlar. Yeni bir özelliğin eklenmesi, diğerleri tarafından üretilen kodlarla çelişecek şekilde aynı büyük sınıf üzerinde çalışılmasını gerektiriyor.
+
+
+
+
+Çözüm
+Strategy deseni, spesifik bir işi bir çok farklı yolla yapan bir sınıfı alıp bütün bu algoritmaları strategy adı verilen ayrı sınfılara ayırmanızı öneriyor.
+
+Bu modelde, bağlam (context) adını vereceğimiz orijinal sınıfta, oluşturacağımız bu stratejilere referansları içeren alanlar oluşturulması gerekiyor.
+
+Bağlam adı verilen orijinal sınıf tüm davranışları kendisi uygulamak yerine, her biri kendi durumunu tutan durum nesnelerinin referansını saklar ve durumla alakalı işleri gerektiğinde onlara delege eder.
+
+Yapılacak iş için uygun algoritmayı seçmek bağlamın sorumluluğu değildir. İstemci kod bağlama tercih ettiği stratejiyi gönderir. Aslına bakarsanız bağlam nesnesinin stratejilerin ne yaptığı ile ilgili bir fikri yoktur. Tüm stratejilerle ortak bir arayüz üzerinden tek bir metot ile etkileşime girer ve algoritmanın içeriğini sadece seçilen strateji bilir.
+
+strateji tasarım deseni örnekleri
+Rota planlama stratejileri
+Navigasyon uygulamamızda, her rota algoritması sadece buildRoute (rota oluştur) sınıfı içeren bağımsız bir sınıfa dönüştürülebilir. Metot bir başlangıç ve bitiş konumu alır ve rotayı geri döndürür.
+
+Aynı parametreler ile çağrılsalar bile her rota sınıfı başka bir rota döndürebilir, ana navigasyon uygulaması hangi algoritmanın seçildiği ile ilgilenmez, onun tek görevi geri döndürülen rotayı harita üzerinde çizmektir. Bı sınıfın aktif rota stratejisini değiştirmek için bir metodu vardır, böylece kullanıcı arabirimindeki düğmeler gibi istemciler rota stratejisini bir başkasıyla değiştirebilirler.

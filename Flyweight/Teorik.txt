@@ -1,0 +1,38 @@
+﻿
+
+Flyweight tasarım deseninin amacı
+Flyweight her bir nesnede tüm verileri tutmak yerine, ortak kısımları paylaşarak mevcut hafıza (RAM) miktarına daha fazla nesne sığdırmanıza olanak sağlayan bir yapısal tasarım desenidir.
+
+
+
+Sorun
+Uzun çalışma saatlerinden sonra biraz eğlenmek için basit bir oyun yapmaya karar verdiniz. Bu oyunda oyuncular küçük bir harita üzerinde dolaşarak birbirlerine vuracaklar. Madem yapıyorum, şöyle gerçekçi bir partikül sistemi ekleyeyim, şaşalı bir şey yapayım dediniz. Çok oyunculu bu oyunda her yerden fırlayan mermiler, roketler ve patlamalardan etrafa saçılan şarapnel parçaları ile muazzam bir oyuncu deneyimi yaşatabilirim diye düşündünüz.
+
+Oyunu tamamladınız, build aldınız ve test etmesi için arkadaşınıza gönderdiniz. Oyun sizin makinenizde harika çalışmasına rağmen arkadaşınız da kısa süre sonra yavaşlama ve donmalar başladı, bir kaç dakikalık oyun süresinden sonra oyun kitlenip kapandı. Debug kayıtlarını kurcalayarak saatler harcadıktan sonra oyunun yetersiz RAM miktarı yüzünden çöktüğünü farkettiniz. Arkadaşınızın bilgisayarı sizinkine göre daha güçsüz olduğu için siz bu sorunla karşılamazken o kısa sürede sorun yaşadı.
+
+Sorunun partikül sisteminden kaynaklandığını farkettiniz. Kurşun, roket veya şarapnel parçası gibi her bir partikül ayrı bir nesne olarak ekranda yer alıyor ve ciddi miktarda veri içeriyordu. Oyuncunun ekranında partikül sayısı artıp sınırı zorladıkça yeni partiküller artık RAM’e sığmıyor ve oyunun çökmesine neden oluyordu.
+
+
+
+Çözüm
+Particle sınıfını yakından incelediğinizde, renk ve sprite alanlarının diğerlerine göre çok daha fazla yer kapladığını, daha da kötüsü bu alanların aslında tüm partiküllerde aynı ya da benzer olduğunu gördünüz. Örneğin tüm mermiler aynı renk ve sprite’a shaipti.
+
+Flyweight tasarım deseni nedir?
+Partikülün koordinat, hareket vektörü ve hızı gibi diğer özellikleri her partikül için benzersizdi ve zamanla değişiyordu. Bu veri partikülün yaşamı boyunca değişkenken renk ve sprite özellikleri her partikül için sabitti.
+
+Bir nesnenin bu gibi sabit verilerine genellikle içsel durum ( intrinsic state) denir. Bu bilgiler nesnenin içinde saklanır, diğer nesneler bu verileri okuyabilir fakat değiştiremez. Nesnenin diğer durumları genellikle nesnenin dışındaki diğer nesneler tarafından değiştirilir ve bunlara da dışsal durum ( extrinsic state ) denir.
+
+Flyweight deseni dışsal durumu nesnenin içinde saklamamanızı, bunun yerine bu durum verisine ihtiyacı olan metodlara aktarmanızı tavsiye eder. Nesnenin içinde sadece içsel durum yer alır ve farklı bağlamlarda ( context ) yeniden kullanılabilir. Sonuç olarak sadece içsel durumları farklı olan, daha az sayıda nesneye ihtiyacınız olur.
+
+Flyweight tasarım deseni ne sağlar?
+Tekrar oyunumuza geri dönelim. Dışsal durumu partikül sınıfımızın dışına aldığımızı düşünürsek oyundaki tüm partikülleri sadece 3 nesne ile ifade edebiliriz: mermi, roket ve şarapnel parçası. Tahmin edeceğiniz üzere sadece içsel durumu saklayan bu nesnelere flyweight denir.
+
+Dışsal durum ( Extrinsic Sate) saklama alanı
+Nesnenin içinde sadece içsel durumu bıraktık peki ya dışsal durum değişkenleri nereye gidecek? Bir nesnenin bu değerleri saklıyor olması lazım değil mi? Çoğu durumda bunlar deseni uygulamadan önce nesneleri toparlayan kapsayıcı ( container ) nesnesinin içine gider.
+
+Bizim oyunumuzda bu partikülleri particles alanında saklayan ana Game nesnesidir. Dışsal durumu bu sınıfın içine taşımak için her partikülün koordinatları, vektörleri ve hızını içeren bir dizi array alanına ihtiyacımız olacaktır. Fakat bununla bitmez, bir alanda da bu partikülü temsil eden spesifik flyweight nesnesinin referansını saklamanız gerekir. Bu
+
+Flyweight tasarım deseni
+Daha şık bir çözüm ise bir bağlam sınıfı (contenxt class) oluşturup dışsal durum ( extrinsic satate) ve flyweight nesnesinin referansını bu sınıfta tutmak. Game sınıfımız içinde ise bı sınfılardan oluşan tek bir array değişkeni tutmak olacaktır.
+
+Ama bir dakika, bunun bize ne faydası oldu? İlk başta oluşturduğumuz nesne sayısı kadar bu bağlam nesnelerinden oluşturmamız gerekmeyecek mi? Teknik olarak evet, fakat bu nesneler öncekilere göre çok daha küçük. Sonuç olarak en fazla hafıza işgal eden bölüm flyweight nesnesinin içine aktarıldı. Şimdi binlerce küçük bağlam nesnesi tek bir büyük flyweight nesnesine referans vererek aynı verinin binlerce kopyası yerine sadece tek bir kopya kullanabilecek.

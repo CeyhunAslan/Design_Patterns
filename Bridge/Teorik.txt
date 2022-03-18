@@ -1,0 +1,28 @@
+﻿
+
+
+Bridge tasarım deseninin amacı
+
+Bridge, Türkçe karşılığı ile köprü büyük sınıfları veya birbiriyle yakın ilişkili sınıfları, birbirinden bağımsız olarak geliştirilebilecek iki ayrı hiyerarşiye bölmenizi sağlayan bir tasarım desenidir.
+
+
+Sorun
+
+Abstraction (Soyutlama) ve Implementation (Uygulama) kavramları korkutucu mu geliyor. Paniğe gerek yok, hemen basit iki örnek düşünelim;
+
+Diyelimki Circle (Çember) ve Square (Kare) gibi bir kaç alt sınıfı olan Shape (Şekil) adlı bir sınıfınız olsun. Bu sınıf hiyerarşisini renkleri de dahile decek şekilde genişletmek istiyorsunuz ve bu amaçla Red (Kırmızı) ve Blue mavi şekil alt sınıflarını oluşturdunuz. Fakat zaten iki şekil alt sınıfınız olduğu için MaviDaire, KırmızıKare gibi dört farklı kombinasyon hazırlamanız gerekecek.
+
+
+Sınıf kombinasyonları geometrik olarak artacaktır.
+Yeni şekil tür veya renkleri eklemek hiyerarşinizi eksponensiyel olarak büyütecektir. Örneğin bir üçgen eklemek istediğinizde her iki renk için de ayrı alt sınıflar oluşturmanız gerekecek. Ve daha sonra yeni bir renk eklemek isterseniz her şekil için bir tane olmak üzere üç alt sınıf daha eklemeniz gerekecek. Daha fazlasını ekledikçe bu durum daha da kötüye gidecek.
+
+
+
+Çözüm
+Bu sorunla karşılaşmamızın nedeni şekil alt sınıfını iki bağımsız boyutta genişletmeye çalışmamız. Bu sınıf türetme (class inheritance) yaparken maalesef karşınıza sık çıkacak bir sorundur.
+
+Köprü deseni (Bridge pattern) bu kalıtsal türetme (inheritance) işini nesne bileşimi haline getirerek çözüyor. Bunun anlamı bu iki boyuttan birini ayrı bir sınıf haline getiriyor ve orijinal sınıf içerisinden buna referans veriyorsunuz, böylece orijinal sınıf diğer sınıfın bütün metod ve durumlarını içermek zorunda kalmıyor.
+
+
+Sınıf hiyerarşinizin gereksiz büyümesini engellemek için birden fazla ilişkili sınıflara ayırabilirsiniz.
+Bu yaklaşımı uygulayarak renkle ilgili kodları Kırmızı ve Mavi alt sınıfları içine koyabiliriz. Böylece şekil sınıfının sadece ilgili renk sınıfına bir referans tutması yeterli olur.

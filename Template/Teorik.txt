@@ -1,0 +1,37 @@
+﻿
+
+
+Template Method Tasarım Deseninin Amacı
+
+
+Template Method ( Şablon Yöntemi ), üst sınıfta algoritmanın bir iskeletini oluşturan, alt sınıfların yapıyı değiştirmeden bu algoritmanın belirli adımlarını değiştirmesine izin veren bir tasarım desenidir.
+
+Sorun
+Kurumsal belgeleri analiz eden bir veri madenciliği uygulaması oluşturduğunuzu hayal edin. Kullanıcılar, uygulama belgelerini çeşitli biçimlerde (PDF, DOC, CSV) besler ve bu belgelerden tek tip bir biçimde anlamlı veriler çıkarmaya çalışır.
+
+Uygulamanın ilk sürümü yalnızca DOC dosyalarıyla çalışırken, bir sonraki sürümde, CSV dosyalarını desteklemeye karar verdiniz. Ve bir ay sonra uygulamanıza PDF dosyalarından veri çıkarmayı “öğrettiniz”.
+
+Template Method nedir?
+Veri madenciliği sınıfları tekrarlanan bir çok kod içeriyor.
+Bir noktada, her üç sınıfın da birçok benzer kodu olduğunu fark ettiniz. Çeşitli veri formatlarıyla ilgili kod tüm sınıflarda farklıyken, veri işleme ve analiz kodu hemen hemen aynıydı. Algoritma yapısını bozmadan kod tekrarından kurtulmak harika olmaz mı?
+
+Koleksiyonun yapısı ne olursa olsun, elemanlarının başka kodlar tarafından erişilir olması için yöntemler sağlamalıdır. Tekrar tekrar aynı elemanlarla karşılaşmadan bütün elemanların üzerinden geçmek için bir yöntem olmalıdır.
+
+Bu sınıfları kullanan istemci koduyla ilgili başka bir sorun daha var. İşleme nesnesinin sınıfına bağlı olarak uygun bir eylem planı seçmek için birçok koşullu ifade içeriyor. Her üç işleme sınıfının ortak bir arayüz ya da temel bir sınıfı varsa, istemci kodundaki koşulları ortadan kaldırabilir ve işleme nesnesindeki yöntemleri çağırırken polimorfizm kullanabilirsiniz.
+
+Çözüm
+Template Method deseni bir algoritmayı bir dizi adıma ayırmanızı, bu adımları yöntemlere dönüştürmenizi ve bu yöntemlere olan çağırıları tek bir template method içerisine yerleştirmenizi ön görür. Adımlar soyut (abstract) olabilir veya varsayılan bir içeriğe sahip olabilirler İstemci algoritmayı kullanmak için kendi alt sınıfını belirtmeli, tüm soyut adımlara sahip olmalı ve gerekirse bazı isteğe bağlı olanları ezmelidir. ( Ama Template methodun kendisini değil, sadece belirli metotlarını )
+
+Gelin bunun veri madenciliği uygulamamızda nasıl çalışacağını görelim. Üç ayrıştırma algoritmasının tümü için temel bir sınıf oluşturabiliriz. Bu sınıf, çeşitli belge işleme adımlarına yönelik bir dizi çağrıdan oluşan bir şablon yöntemi tanımlar.
+
+Template Method Uygulama Adımları
+Template Method algoritmayı adımlara böler böylece alt sınıfların metodun tamamını değil sadece belirli adımlarını değiştirmelerine olanak verir.
+İlk başta bütün adımları soyut (abstract) tanımlayıp alt sınıfları kendi uygulamalarını belirlemeye zorlayabiliriz. Örnek uygulamamızda alt sınıfların uygulamaları hazır, tek yapmamız gereken metodun çağırılığını üst sınıfla (superclass) uyumlu hale getirmek olacaktır.
+
+Şimdi yinelenen koddan kurtulmak için neler yapabileceğimize bakalım. Dosyaları açma/kapatma ve verileri ayıklama/ayrıştırma kodu değişik veri formatları için farklı görünüyor, bu nedenle bu yöntemlere dokunmanın bir anlamı yok. Ancak, ham verileri analiz etmek ve raporları oluşturmak gibi diğer adımların uygulanması çok benzer, bu nedenle alt sınıfların bu kodu paylaşabileceği temel sınıfa çekilebilir.
+
+Gördüğünüz üzere iki tip adımımız var:
+
+Soyut (abstract) adımlar her alt sınıf için uyarlanmalıdır.
+İsteğe bağlı adımların varsayılan bir uyarlaması vardır fakat gerekirse ezilebilir. (override)
+Esasında kanca (hook) adı verilen bir adım daha var. Bir kanca içeriği boş olan isteğe bağlı bir adımdır. Template Method kanca ezilmese dahi çalışabilir. Kancalar genellikle önemli adımların öncesine ve sonrasına koyulur ve böylece alt sınıfların algoritmayı genişletmesi için ekstra noktalar oluşturulmuş olur.

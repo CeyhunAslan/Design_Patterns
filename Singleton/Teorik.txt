@@ -1,0 +1,23 @@
+﻿
+
+
+Singleton Design Pattern
+
+Yapı açısından, singleton oldukça bassittir. Bu, özel bir örnekleme ve bu örnekleme başvurmanın tek yolunu sağlayan genel bir statik yöneteme sahip tek bir sınıftır. Ayrıca private bir constructor sahip olmaldır. Çünkü nesnenin dışarıdan üretilmemesi prensibine dayanamaktadır. Singleton deseninde esas amaç nesnenin her daim bir örneklemi oluşturulması ve bu örnekleme üzerinden bütün işlemlerin yapılmasıdır. Biraz daha açarsak nesnenin kullanım süresi boyunca sadece bir kez oluşturulması ve bir daha olşturulmaması üzerine kurulu bir mantığı bulunmaktadır.
+
+
+Singleton modelinin doğası, onu uygulayan sınıfların bir uygulamanın ömrü boyunca herhangi bir zamanda 0 veya 1 olmasıdır. Singleton sınıfları parametresiz oluşturulur. Farklı parametrelere dayalı çeşitli benzer örneklere ihtiyacınız varsa, muhtemelen factory design pattern kullanmanız daha doğrudur.
+
+
+Singleton Pattern aslında amaç oalrak bir classdan sadece bir object yaratılmasını create edilmesini amaçlar yada bir objeden belirli bir sayıda uretilmesinin sağlar.
+
+
+
+Çözüm
+Tüm singleton uyarlamaları için aşağıdaki iki adım ortaktır:
+
+1.Varsayılan constructor’ı özel (private) yapın, böylede diğer nesneler bu singleton sınıfı ile new operatörünü kullanamazlar.
+2.Constructor olarak görev yapacak statik bir oluşturma metodu yazın. Aslında bu metod arka planda özel constructor’ı çağıracak ve bunu statik bir alana kaydedecektir. Bu metoda daha sonra gelen tüm çağrılar ön belleğe alınmış bu nesneyi gönderecektir.
+
+
+Kodunuz Singleton sınıfına erişebiliyorsa Singleton’un statik metoduna da erişebilir. Bu metod her çağrıldığında aynı nesne döndürülecektir.

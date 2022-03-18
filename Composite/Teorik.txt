@@ -1,0 +1,26 @@
+﻿
+
+Composite tasarım deseninin amacı
+
+Composite (Kompozit) nesneleri ağaç yapıları halinde oluşturmanıza ve bu ağacın dalları ile tek tek nesnelermiş gibi çalışmanıza olanak veren bir bir tasarım desen
+
+Sorun
+Uygulamanızın ana modeli bir ağaç şeklinde gösterilebiliyorsa composite tasarım desenini kullanmanız işe yarayabilir.
+
+Örnek olara Products (Ürünler) ve Boxes (kutular) şeklinde iki tür nesneniz var diyelim. Bir kutu birden fazla ürün içerebilir, hatta daha küçük kutular da içerebilir. Bu kutuların içinde de ürünler ya da kendilerinden daha küçük kutular olabilir. (ve bu böyle gider)
+
+Bu sınıfları kullanan bir sıralama sistemi yapmaya karar verdiğinizi düşünün. Siparişler herhangi bir paketleme yapılmaya gerek olmayan basit ürünler içerdiği gibi, içi bir çok ürünle dolu kutulardan da oluşabilir. Böyle bir siparişin toplam fiyatını nasıl belirlersiniz?
+
+Composite Tasarım Deseni
+Bir sipariş kutular içine paketlenmiş çeşitli ürünlerden oluşabilir ve bu kutularda daha büyük başka kutuların içine koyulmuş olabilirler. Yapıya yukarıdan aşağı bakıldığında bir ağaç görünümü oluşturur.
+Direkt bir yaklaşımla tüm kutuları açabilir, bütün ürünlere bakabilir ve toplamı hesaplayabilirsiniz. Bu gerçek dünyada uygulanabilir bir yöntem fakat bir program için bir döngü çalıştırmak kadar basit değildir. Tarayacağınız kutu ve ürünlerin sınıflarını, kaç seviye aşağıya gidileceğini vb. diğer detayları önceden bilmeniz gerekir. Bu kısıtlar direkt yaklaşımı kullanışsız ve bazen imkansız hale getirir.
+
+
+Çözüm
+Composite deseni ürünler ve kutularla çalışırken, fiyatı hesaplaması için bir metod içeren ortak bir arayüz kullanmanızı önerir.
+
+Peki bu metod nasıl çalışıyor? Bir ürün için bu basitçe kendi fiyatını döndürür. Bir kutu kendi içindeki tüm öğelere gidip onlara fiyatlarını sorar (aynı arayüzle) ve toplamı döndürür. Eğer bu öğelerden biri küçük bir kutuysa o da içindekilere fiyatları sorarak toplamı bulacak ve önceki büyük kutuya bu toplamı gönderecektir. Böylece hiç bir kutu daha alt seviyelerde ne olduğunu bilmek zorunda kalmayacaktır.
+
+Kompozit tasarım deseni nedir?
+Composite pattern bir çağrıyı bir nesne ağacındaki tüm bileşenler için öz yinelemeli (recursive) olarak çağırabilmenizi sağlar.
+Bu metodun en avantajlı tarafı ağaçtaki nesnelerin tam sınıflarını bilmeniz gerekmemesidir. Nesnenin tipinden bağımsız olarak composite arayüzdeki metodu içermesi sizin için yeterlidir. Bir nesne basit bir ürün mü, yoksa karmaşık içerikli bir kutu mu önceden bilmeniz gerekmez. Bir metodu çağırdığınızda daha aşağılara inilmesi gerekiyorsa ilgili nesne bunu kendisi yapacaktır.

@@ -1,0 +1,17 @@
+﻿Prototype deseninin amacı
+Prototype (Clone) bir objeyi, kodunuz onun sınıflarına bağımlı hale gelmeden kopyalamayı sağlayan bir tasarım desenidir.
+
+
+Sorun
+Bir nesneniz olduğunu ve onun birebir kopyasını oluşturmak istediğinizi düşünün. Bunu nasıl yaparsınız? Önce aynı sınıf (class) da bir obje oluşturmalısınız. Ardından orijinal nesnenin tüm alanları üzerinden geçip değerleri yeni objenize atamalısınız. Yalnız burada bir sorun var. Tüm nesneleri bu şekilde kopyalamak mümkün değil, çünkü bazı alanları özel (private) tanımlanmış ve objenin dışından görülemiyor olabilir.
+
+Bu doğrudan yöntemle ilgili bir sorun daha var. Kopyasını oluşturmak için nesnenin (object) sınıfını (class) bilmek zorunda olduğunuz için kodunuz o sınıfa bağımlı olur, daha da kötüsü bazen tüm sınıfı (concrete class) değil sadece o sınıfın dikkate aldığı arayüzü (interface) biliyor olursunuz.
+
+
+
+Çözüm
+Prototype tasarım deseni klonlama sürecini klonlanan nesneye delege eder ve bunu klonlama destekleyen tüm nesneler için ortak bir arayüz belirleyerek yapar. Bu arayüz kodunuzu bu nesnenin sınıfına bağımlı hale getirmeden nesneyi klonlamanızı sağlar. Böyle bir arayüz genellikle sadece bir clone metodu içerir.
+
+clone metodunun uygulanması bir çok sınıf için benzerdir. Bu metod mevcut sınıfta bir nesne oluşturur ve tüm alan değerlerini eski objeden yenisine taşır. Bir çok programlama dili aynı sınıftan nesnelerin diğer nesnenin özel (private) sınıflarına ulaşmasına izin verdiği için özel (private) alanları dahi kopyalayabilirsiniz.
+
+Klonlamaya izin veren nesnelere protoype denir. Nesneleriniz onlarca alan ve yüzlerce farklı yapılandırmaya sahipse klonlama (cloning) alt sınıflara (subclass) iyi bir alternatiftir.
